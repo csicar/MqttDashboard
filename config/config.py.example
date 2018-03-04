@@ -1,0 +1,14 @@
+from libs.TopicViews import *
+
+views = [
+    TextView("topic1/subtopic", "Nice name for this topic"),
+    TextView("topic2/subtopic2", "My Topic"),
+    CheckBoxView("startTheICBMS", "My Red Shiny Button")
+]
+
+connection = {
+    "server": "mqtt.whateverthings.io",
+    "port": 1883,
+    "user": "myuser",
+    "password": "mypassword"
+}
