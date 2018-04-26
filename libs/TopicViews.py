@@ -5,6 +5,7 @@ from gi.repository import Gtk, Gio, GObject, Gdk
 
 
 class TopicView(Gtk.Box):
+    """Main Representation of a Mqtt-Box, with the ability to subscribe to topics"""
     def __init__(self):
         super().__init__()
         self.get_style_context().add_class("TopicView")
@@ -22,20 +23,38 @@ class TopicView(Gtk.Box):
         self.show_all()
 
     def on_message(self, userdata, payload, msg):
+        """should handle messages on the subscribed topics
+
+        Arguments:
+        userdata -- the private user data set in mqtt
+        payload -- contents of the recieved message
+        msg -- object given by the used mqtt-library
+        """
         pass
 
     def get_topic(self):
+        """should return a string containing the name of the topic that the box should subscribe to
+        
+        Example:
+        "temperature"
+        """
         pass
 
     def set_client(self, client):
         self.client = client
 
     def send_message(self, msg):
+        """this method can be called if a message should be send on the topic self.get_topic() """
+
         self.client.publish(self.get_topic(), msg)
 
 
 class DefaultTopicView(TopicView):
     def __init__(self, topic, name):
+        """should be called from every implementer
+        Arguments:
+        topic -- topic that should be subscribed to
+        name -- Name of the Mqtt-Widget that will be displayed in the top of it"""
         super().__init__()
         self.topic = topic
         self.name = name
@@ -71,6 +90,7 @@ class DefaultTopicView(TopicView):
         return True
 
     def create_content_view(self):
+        """should return a Gtk-Widget that will be displayed inside of the Mqtt-Widget"""
         pass
 
     def get_topic(self):
